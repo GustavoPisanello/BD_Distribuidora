@@ -34,7 +34,7 @@ create table Endereco(
     foreign key (IDUF) references Estado(IDUF),
     idCidade int,
     foreign key (idcidade) references Cidade(Idcidade),
-	CEP bigint(9)
+	CEP bigint(9) primary key
 );
 
 create table Estado(
@@ -48,8 +48,7 @@ create table Cidade(
 );
 create table bairro(
 	IdBairro int primary key,
-	NomeBairro varchar(50),
-    CEP bigint(9) 
+	NomeBairro varchar(50)
 );
 
 create table ProdutoVenda(
@@ -183,7 +182,7 @@ DELIMITER $$
 create procedure insereBairro(vIdBairro int, nomeBairro varchar(200)) 
 begin
 	if(not exists(select idBairro from Bairro where idBairro = vIdBairro)) then
-		insert into Bairro values(IdBairro, nomeBairro);
+		insert into Bairro values(vIdBairro, nomeBairro);
         else
         select"Insira os dados corretamente";
         end if;
@@ -231,6 +230,7 @@ begin
         select"Insira os dados corretamente";
         end if;
 end$$
+    
     
     call insereEnd("Rua da Federal","5","1","10", "12345050");
     call insereEnd("Avenida Brasil","5","1","3", "12345051");
